@@ -1,5 +1,5 @@
 import sys
-sys.setrecursionlimit(10000000000000)
+sys.setrecursionlimit(100000000)
 if __name__ == "__main__":
     C = int(input())
     SWITCHES = 10
@@ -39,6 +39,7 @@ if __name__ == "__main__":
             push(iClock, switch)
 
         return ret
+
     while C:
         C -= 1
         clocks = list(map(int, input().split()))
