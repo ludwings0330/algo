@@ -1,15 +1,14 @@
+import sys
+input = sys.stdin.readline
 
 N = int(input())
-numList = [0, *map(int, input().split())]
-dpList = [0]*(N+1)
+arr = list(map(int, input().split()))
+dp = []
 
-for i in range(1, N+1):
-    maxIndex = 0
-
+for i in range(N):
+    dp.append(1)
     for j in range(i):
-        if numList[i] > numList[j]:
-            maxIndex = max(maxIndex, dpList[j])
+        if arr[i] > arr[j]:
+            dp[i] = max(dp[i], dp[j]+1)
 
-    dpList[i] = maxIndex + 1
-
-print(max(dpList))
+print(max(dp))

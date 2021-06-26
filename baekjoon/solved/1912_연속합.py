@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input()) # 1 <= n <= 100,000
 numList = [*map(int, input().split())]
 
