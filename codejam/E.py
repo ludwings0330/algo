@@ -4,35 +4,36 @@ input = sys.stdin.readline
 
 
 def solve(index, left, right, n):
+
+    if (dq[0][2], dq[-1][2], index) in dp: # 이건 가봤자 실패야
+        return False
+
     # minheap[index]를
     if index == -1:
-        while dq:
-            a, aa, n = dq.popleft()
-            print(n+1, end= ' ')
-        print()
-        return True
-
-    # 1. left에 추가
-    fLeft = ((minheap[index][0] != dq[0][0]) and (minheap[index][1] - dq[0][1]) * (dq[0][1] - dq[1][1])) < 0
-    fRight = ((dq[-1][0] != minheap[index][0]) and (dq[n-2][1] - dq[n-1][1]) * (dq[n-1][1] - minheap[index][1])) < 0
-    if fLeft and fRight:
-        if abs(minheap[index][1]-dq[0][1]) > abs(minheap[index][1]-dq[-1][1]):
-            fRight = False
+        if left == 0 or right == 0:
+            return False
         else:
-            fLeft = False
-
-    if fLeft:
-        dq.appendleft(minheap[index])
-        if solve(index-1, left+1, right, n+1):
+            while dq:
+                a, aa, n = dq.popleft()
+                print(n+1, end= ' ')
+            print()
             return True
-        dq.popleft()
-    elif fRight:
-        dq.append(minheap[index])
-        if solve(index - 1, left, right + 1, n + 1):
-            return True
-        dq.pop()
+    # 1. left에 추가
+    if minheap[index][0] != dq[0][0]: # 강한 단조 증가의 경우에만 추가, 연속된 숫자는 넣을 수 없음
+        if n < 2 or ((minheap[index][1] - dq[0][1]) * (dq[0][1] - dq[1][1])) < 0:
+            dq.appendleft(minheap[index])
+            if solve(index-1, dq[0][0], right, n+1):
+                return True
+            dq.popleft()
 
-
+    # 2. right에 추가
+    if dq[-1][0] != minheap[index][0]: # 강한 단조 감소의 경우에만 추가
+        if n < 2 or ((dq[n-2][1] - dq[n-1][1]) * (dq[n-1][1] - minheap[index][1])) < 0:
+            dq.append(minheap[index])
+            if solve(index-1, left, dq[-1][0], n+1):
+                return True
+            dq.pop()
+    dp.add((dq[0][2], dq[-1][2], index))
     return False
 
 
@@ -50,9 +51,8 @@ while T:
         minheap.append([H[i], R[i], i])
 
     minheap.sort()
-
+    dp = set()
     dq = deque()
-    dq.append(minheap[n-1]) # 최대값을 dq 에 넣는다. 이게 k 임
-    dq.append(minheap[n-2]) # 오른쪽에 -1을 넣는다 방향을 뒤집어도 똑같기때문에 상관 없음
-    if not solve(n-3, 0, 1, 2):
+    dq.append(minheap[-1]) # 최대값을 dq 에 넣는다. 이게 k 임
+    if not solve(n-2, 0, 0, 1):
         print(-1)
