@@ -25,7 +25,7 @@ for i in range(V+1):
     if i == K:
         print(0)
     if dp[i] < min and not visit[i]:
-        min = d[i]
+        min = dp[i]
         index = i
 
 print(trunk)

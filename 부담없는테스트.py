@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def getinverse(b, n):
     if n == 0:
         return 1
@@ -13,3 +14,8 @@ def getinverse(b, n):
         return a * a
 for i in range(10):
     print(getinverse(3, i))
+=======
+print(1<<1)
+print(1<<0)
+print(0)
+>>>>>>> 270b430544f5585f0048f00843606bcd32d645f0

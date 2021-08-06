@@ -9,7 +9,10 @@ if __name__ == "__main__":
 
         for i in range(2):
             numList.append(list(map(int, input().split())))
-
+        if N == 1:
+            print(*max(numList[0], numList[1]))
+            continue
+            
         numList[0][1] += numList[1][0]
         numList[1][1] += numList[0][0]
 
