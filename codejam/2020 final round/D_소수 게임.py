@@ -10,6 +10,26 @@ input = lambda: sys.stdin.readline().rstrip()
 
 TC = int(input())
 
+prime = [1] * (10**5 + 1)
+prime[0] = prime[1] = 0
+
+bob_win = [1] * (10**5 + 1)
+
+
+for i in range(2, 10**5 + 1):
+    if prime[i] == 1:
+        k = 2
+        while i * k <= 10**5:
+            prime[i * k] = 0
+            k += 1
+
+for i in range(2, 10**5 + 1):
+    if prime[i] == 1:
+        bob_win[i] = 0
+        bob_win[i+1] = 0
+
+
+
 while TC:
     TC -= 1
     A, k = map(int, input().split())

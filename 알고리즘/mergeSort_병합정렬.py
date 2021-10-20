@@ -7,7 +7,6 @@ S = [int(input()) for i in range(N)]
 def mergeSort(A):
     # base Case
     # 더 이상 분해할 수 없으면 List A 를 반환한다.
-
     if len(A) == 1:
         return A
 
