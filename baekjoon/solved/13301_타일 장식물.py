@@ -1,10 +1,15 @@
-tileList = [0, 1, 1]
-
 N = int(input())
-answer = 0
 
-for i in range(2, N+1):
-    tileList.append(tileList[i] + tileList[i-1])
+dp = [0] * 81
+dp[0] = dp[1] = 1
+for i in range(2, 81):
+    dp[i] = dp[i-1] + dp[i-2]
 
-answer = (tileList[-1] + tileList[-2]) * 2
-print(answer)
+ans = 0
+if N == 1:
+    ans = 4
+elif N == 2:
+    ans = 6
+else:
+    ans = (dp[N-1] + dp[N-2] + dp[N-1])*2
+print(ans)
