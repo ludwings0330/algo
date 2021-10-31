@@ -24,14 +24,7 @@ def solve(n, m):
     if n == 1:
         return m + 1
 
-    if n % 2 == 0:
-        return solve(n//2, m) + 1
-
-    elif n % 2 == 1:
-        if m > 0:
-            return solve((n+1)//2, m-1) + 1
-        else:
-            return solve(n//2, m) + 1
+    return solve(n//2, m) + 1
 
 while T:
     T -= 1
