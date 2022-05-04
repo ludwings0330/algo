@@ -1,26 +1,36 @@
-def solution(a):
+def solution(words):
     answer = 0
-    minLeft = a[0]
-    minRight = a[-1]
-    DP = [0] * len(a)
-    for i in range(1, len(a)):
-        if a[i] < minLeft:
-            minLeft = a[i]
-        else:
-            DP[i] += 1
+    graph = {}
 
-    for i in range(len(a) - 2, 0, -1):
-        if a[i] < minRight:
-            minRight = a[i]
+    for word in words:
+        if word[0] not in graph:
+            graph[word[0]] = [dict(), 1]
         else:
-            DP[i] += 1
+            graph[word[0]][1] += 1
+        node = graph[word[0]]
 
-    for i in range(len(DP)):
-        if DP[i] != 2:
-            # print(a[i], end=' ')
+        for i in range(1, len(word)):
+            if word[i] not in node[0]:
+                node[0][word[i]] = [dict(), 1]
+            else:
+                node[0][word[i]][1] += 1
+            node = node[0][word[i]]
+
+    for word in words:
+        node = graph[word[0]]
+        answer += 1
+        if node[1] == 1:
+            continue
+        for i in range(1, len(word)):
+            if node[0][word[i]][1] == 1:
+                answer += 1
+                break
+            node = node[0][word[i]]
             answer += 1
-
-    # print(DP)
     return answer
 
-print(solution([-16,27,65,-2,58,-92,-71,-68,-61,-33]))
+
+words = [["go","gone","guild"], ["abc","def","ghi","jklm"], ["word","war","warrior","world"]]
+
+for w in words:
+    print(solution(w))

@@ -1,41 +1,30 @@
-import heapq
-
-def solution(n, costs):
+def solution(cookie):
     answer = 0
-    VISIT = set()
-    hq = []
-    graph = {}
-    for s, e, v in costs:
-        if s in graph:
-            graph[s][e] = v
-        else:
-            graph[s] = {e : v}
+    LEN = len(cookie)
+    cs = 0
+    ce = LEN
+    for i in range(LEN):
+        s = cs + i
+        e = ce - i
+        for m in range(s, e):
+            sumLeft = 0
 
-        if e in graph:
-            graph[e][s] = v
-        else:
-            graph[e] = {s : v}
+            for l in range(m, s-1, -1):
+                sumLeft += cookie[l]
+                sumRight = 0
 
-    for next in graph[0]:
-        heapq.heappush(hq, [graph[0][next], next])
-    VISIT.add(0)
+                for r in range(m+1, e):
+                    sumRight += cookie[r]
 
-    while hq:
-        value, node = heapq.heappop(hq)
-        if node not in VISIT:
-            answer += value
-        VISIT.add(node)
-
-        for next in graph[node]:
-            if next not in VISIT:
-                heapq.heappush(hq, [graph[node][next], next])
-
-
-
-    print(graph)
+                    if sumLeft == sumRight:
+                        answer = max(answer, sumLeft)
+                    elif sumLeft < sumRight:
+                        break
+        if answer != 0:
+            return answer
     return answer
 
-n = 4
-costs = [[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]]
+cookie = [[1,1,2,3], [1,2,4,5], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
-print(solution(n, costs))
+for c in cookie:
+    print(solution(c))
