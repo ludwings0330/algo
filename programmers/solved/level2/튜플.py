@@ -10,8 +10,12 @@ def solution(s):
 
     s.sort(key = lambda x:len(x))
 
-    print(s)
     answer = s[0]
+    for ss in s[1:]:
+        tt = set(ss)
+        tmp = set(answer)
+        tt = tt - tmp
+        answer.append(list(tt)[0])
 
     return answer
 
