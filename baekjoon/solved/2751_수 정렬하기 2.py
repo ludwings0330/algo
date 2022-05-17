@@ -12,7 +12,7 @@ def mergeSort(A):
         return A
 
     # 우선 끝까지 분할해줘야한다.
-    left  = mergeSort(A[:len(A)//2])
+    left = mergeSort(A[:len(A)//2])
     right = mergeSort(A[len(A)//2:])
 
     # left, right 는 이미 정렬된 상태로 들어와야 하므로, 이 아래에서 정렬해준다.

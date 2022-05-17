@@ -1,38 +1,39 @@
-from collections import deque
+move = {0:(0, 1), 1: (1, 0), 2:(0, -1), 3:(-1, 0)}
 
-# S : 직진, L : 좌회전, R : 우회전
-
-# 1<= grid <= 500
-
-# (r, c)
-move = [(1, 0), (0, -1), (-1, 0), (0, 1)]
-visit = [[[False] * 4 for _ in range(len(board[0]))] for _ in range(len(board))]
-
-def cycle(r, c, d):
-    ret = 0
-
-    dq = deque()
-    dq.append([r, c, d])
-    
 def solution(grid):
     answer = []
+
     board = [list(g) for g in grid]
+    row, col, direction = len(board), len(board[0]), 4
+    visit = [[[False] * col for _ in range(row)] for _ in range(direction)]
+    # [direction][row][col]
+
+    for r in range(row):
+        for c in range(col):
+            for d in range(direction):
+                if not visit[d][r][c]:
+                    count = 0
+                    while not visit[d][r][c]:
+                        visit[d][r][c] = True
+                        count += 1
+                        dr, dc = move[d]
+                        r = (r + dr + row) % row
+                        c = (c + dc + col) % col
+                        if board[r][c] != "S":
+                            if board[r][c] == "L":
+                                d = (d + len(move) + 1) % len(move)
+                            elif board[r][c] == "R":
+                                d = (d + len(move) - 1) % len(move)
+
+                    answer.append(count)
 
 
-    global visit
-
-    for r in range(len(board)):
-        for c in range(len(board[0])):
-            for d in range(4): # 0 : 위, 1 : 왼, 2: 아래, 3: 오른쪽
-                if not visit[r][c][d]:
-                    visit[r][c][d] = 0
-                    answer.append(cycle(r, c, d))
-
-    answer.sort()
-    return answer
+    return sorted(answer)
 
 
-grid = [["SL", "LR"], ["S"], ["R", "R"]]
-
-for i in range(len(grid)):
-    print(solution(grid[i]))
+# grid = ["SL", "LR"]
+# print(solution(grid))
+# grid = ["S"]
+# print(solution(grid))
+grid = ["R", "R"]
+print(solution(grid))
