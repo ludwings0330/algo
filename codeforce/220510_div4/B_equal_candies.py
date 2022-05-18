@@ -1,5 +1,5 @@
 import sys
-inpu = lambda:sys.stdin.readline().rstrip()
+input = lambda:sys.stdin.readline().rstrip()
 
 tc = int(input())
 for test_case in range(tc):

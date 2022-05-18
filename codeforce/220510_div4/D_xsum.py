@@ -4,7 +4,6 @@ from collections import defaultdict
 
 t = int(input())
 
-move = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
 for test_case in range(t):
     r, c = map(int, input().split())
 
