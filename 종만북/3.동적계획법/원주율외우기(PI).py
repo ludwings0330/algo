@@ -41,7 +41,7 @@ def memorize(begin):
 
     for L in range(3, 6):
         if begin + L <= len(nums):
-            cache[begin] = min(cache[begin], memorize(begin + L) + classify(begin, begin + L))
+            cache[begin] = min(cache[begin], memorize(begin + L) + classify(begin,  + L))
     return cache[begin]
 
 # 모든 숫자가 같을때 1

@@ -3,10 +3,10 @@ C = int(input())
 
 def JLIS(startA, startB):
     # 메모이제이션
-    if cache[startA + 1][startB + 1] != -1 :
+    if cache[startA + 1][startB + 1] != -1:
         return cache[startA + 1][startB + 1]
 
-    cache[startA + 1][startB + 1] = 2
+    cache[startA + 1][startB + 1] = 0
     a = -float('inf') if startA == -1 else A[startA]
     b = -float('inf') if startB == -1 else B[startB]
     MAX = max(a, b)
@@ -28,4 +28,4 @@ for testCase in range(1, C+1):
 
     cache = [[-1] * (nB + 1) for _ in range(nA + 1)]
 
-    print(JLIS(-1, -1) - 2)
+    print(JLIS(-1, -1))
