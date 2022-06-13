@@ -1,6 +1,5 @@
 import sys
 input = lambda: sys.stdin.readline().rstrip()
-from collections import deque
 
 t = int(input())
 while t:
@@ -8,10 +7,11 @@ while t:
     n = int(input())
     s = list(map(int, input().split()))
     f = list(map(int, input().split()))
-    time = 0
-    dq = deque()
+
+    r = [0] * n
+    r[0] = s[0]
+
     for i in range(1, n):
-        if s[i] < f[i - 1]:
-            s[i] = f[i - 1]
-    d = [fi - si for fi, si in zip(f, s)]
+        r[i] = max(f[i-1], s[i])
+    d = [fi - ri for fi, ri in zip(f, r)]
     print(*d)

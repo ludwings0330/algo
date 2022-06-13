@@ -8,9 +8,8 @@ while t:
     a = list(map(int, input().split()))
     b = list(map(int, input().split()))
 
-    c = [bi - ai for bi, ai in zip(b, a)]
-    k = max([abs(ci) for ci in c])
-    a = [max(0, ai - k) for ai in a]
+    max_diff = max([abs(bi - ai) for bi, ai in zip(b, a)])
+    a = [max(0, ai - max_diff) for ai in a]
     if a == b:
         print('YES')
     else:
