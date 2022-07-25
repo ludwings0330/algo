@@ -3,11 +3,11 @@ input = lambda: sys.stdin.readline().rstrip()
 from collections import defaultdict
 
 W = int(input())
-dict_count = defaultdict(int)
-MAX = 0
 
 for w in range(1, W+1):
     rooms = [''] * 200
+    count = [0] * 200
+    MAX = 0
 
     for i in range(20):
         room, name = input().split()
@@ -20,17 +20,17 @@ for w in range(1, W+1):
         for i in range(101, 121):
             if i % 2 == 1 and is_odd == 'O':
                 continue
-            elif i % 2 == 0 and is_odd == 'E':
+            if i % 2 == 0 and is_odd == 'E':
                 continue
             if i % int(divisor) == 0:
                 continue
             if rooms[i].lower()[0] == first_name.lower():
                 continue
 
-            dict_count[rooms[i]] += 1
-            MAX = max(MAX, dict_count[rooms[i]])
+            count[i] += 1
+            MAX = max(MAX, count[i])
 
     print(f'WEEK {w}')
     for i in range(101, 121):
-        if dict_count[rooms[i]] == MAX:
+        if count[i] == MAX and count[i] != 0:
             print(rooms[i])
