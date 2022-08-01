@@ -16,8 +16,8 @@ for ch in list("abcdefghijklnmopqrstuvwxyz"):
 def count_word():
     ret = len(words)
     for word in words:
-        for ch in chars:
-            if chars[ch] == 1 and ch not in word:
+        for w in word:
+            if chars[w] != 1:
                 ret -= 1
                 break
     return ret
@@ -30,7 +30,7 @@ def solve(i, remains):
     ret = 0
     for next in range(i, len(chars)):
         chars[idx[next]] = 1
-        ret = max(ret, solve(i+1, remains - 1))
+        ret = max(ret, solve(next+1, remains - 1))
         chars[idx[next]] = 0
 
     return ret
