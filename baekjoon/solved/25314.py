@@ -1,0 +1,1 @@
+print("long " * ((int(input()) + 3) // 4) + "int")
